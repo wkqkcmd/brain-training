@@ -1,3 +1,8 @@
+두뇌 개발 게임
+1. 같은 그림 찾기
+2. 이미지 퍼즐 맞추기
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

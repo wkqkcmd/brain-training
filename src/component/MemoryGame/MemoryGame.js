@@ -134,7 +134,7 @@ const MemoryGame = () => {
         )}
         {isGameActive && <h2>게임 진행 시간: {gameTime}초</h2>}
         {isGameFinished && (
-          <h2 className="success-message">🎉 성공! 총 {gameTime}초 소요!</h2>
+          <h2 className="success-message">🎉 성공! 총 {gameTime}초!</h2>
         )}
       </div>
 

@@ -50,3 +50,9 @@ p {
 .reset-button:hover {
   background-color: #ff4530;
 }
+
+/* 퍼즐 조각 선택 시 강조 효과 */
+.puzzle-piece.selected {
+  border: 3px solid red;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
