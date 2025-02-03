@@ -1,0 +1,16 @@
+.card {
+  width: 100px;
+  height: 100px;
+  background: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.flipped {
+  background: white;
+}
