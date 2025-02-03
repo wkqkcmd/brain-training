@@ -14,7 +14,6 @@ const splitImage = (img, rows, cols) => {
       canvas.width = pieceWidth;
       canvas.height = pieceHeight;
 
-      // 이미지를 자르기
       context.drawImage(
         img,
         col * pieceWidth,
@@ -27,7 +26,6 @@ const splitImage = (img, rows, cols) => {
         pieceHeight
       );
 
-      // 자른 이미지 조각을 배열에 저장
       pieces.push(canvas.toDataURL());
     }
   }
@@ -40,6 +38,7 @@ const PuzzleGame = () => {
   const [shuffledPieces, setShuffledPieces] = useState([]);
   const [completed, setCompleted] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
+  const [selectedPiece, setSelectedPiece] = useState(null); // 터치용 선택한 조각
 
   const imageList = [
     '/images/puzzlegame/토끼.jpg',
@@ -49,7 +48,7 @@ const PuzzleGame = () => {
     '/images/puzzlegame/과일테이블.jpg',
     '/images/puzzlegame/부케.jpg',
     '/images/puzzlegame/해골.jpg',
-  ]; // 퍼즐에 사용할 이미지 목록
+  ];
 
   const loadNewPuzzle = () => {
     const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
@@ -58,65 +57,78 @@ const PuzzleGame = () => {
     const img = new Image();
     img.src = randomImage;
     img.onload = () => {
-      const pieces = splitImage(img, 3, 3); // 3x3 퍼즐로 나누기
+      const pieces = splitImage(img, 3, 3);
       setPieces(pieces);
-      setShuffledPieces([...pieces].sort(() => Math.random() - 0.5)); // 랜덤으로 섞기
+      setShuffledPieces([...pieces].sort(() => Math.random() - 0.5));
       setCompleted(false);
     };
   };
 
   useEffect(() => {
-    loadNewPuzzle(); // 게임 시작 시 퍼즐 로드
+    loadNewPuzzle();
   }, []);
 
+  // 퍼즐 조각 위치 변경 함수 (공통)
+  const swapPieces = (fromIndex, toIndex) => {
+    const newPieces = [...shuffledPieces];
+    [newPieces[fromIndex], newPieces[toIndex]] = [newPieces[toIndex], newPieces[fromIndex]];
+    setShuffledPieces(newPieces);
+    checkCompletion(newPieces);
+  };
+
+  // 🖱️ 드래그 이벤트 (PC)
   const handleDragStart = (e, index) => {
     e.dataTransfer.setData('pieceIndex', index);
   };
 
   const handleDrop = (e, index) => {
     const pieceIndex = e.dataTransfer.getData('pieceIndex');
-    const newPieces = [...shuffledPieces];
-    [newPieces[index], newPieces[pieceIndex]] = [newPieces[pieceIndex], newPieces[index]];
-    setShuffledPieces(newPieces);
-    checkCompletion(newPieces);
+    swapPieces(pieceIndex, index);
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
+  // 📱 터치 이벤트 (모바일)
+  const handleTouchStart = (index) => {
+    if (selectedPiece === null) {
+      setSelectedPiece(index); // 첫 번째 조각 선택
+    } else {
+      swapPieces(selectedPiece, index);
+      setSelectedPiece(null); // 선택 해제
+    }
+  };
+
+  // 게임 완료 체크
   const checkCompletion = (newPieces) => {
     if (newPieces.every((piece, idx) => piece === pieces[idx])) {
       setCompleted(true);
     }
   };
 
-  // 🔄 게임 리셋 함수
-  const resetGame = () => {
-    loadNewPuzzle(); // 새로운 퍼즐 로드
-  };
-
   return (
     <div className='game-container'>
-      <h1>이미지 퍼즐</h1>
+      <h1>이미지 퍼즐 맞추기</h1>
       <p>현재 퍼즐: {selectedImage.split('/').pop().replace('.jpg', '')}</p>
       <div className="puzzle">
         {shuffledPieces.map((piece, index) => (
           <div
-          key={index}
-          className="puzzle-piece"
-          style={{ backgroundImage: `url(${piece})` }}
-          draggable
-          onDragStart={(e) => handleDragStart(e, index)}
-          onDrop={(e) => handleDrop(e, index)}
-          onDragOver={handleDragOver}
+            key={index}
+            className={`puzzle-piece ${selectedPiece === index ? 'selected' : ''}`}
+            style={{ backgroundImage: `url(${piece})` }}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDrop={(e) => handleDrop(e, index)}
+            onDragOver={handleDragOver}
+            onTouchStart={() => handleTouchStart(index)} // 📱 터치 지원 추가
           />
         ))}
       </div>
       {completed && <p>🎉 게임 완료! 축하합니다! 🎉</p>}
 
-      {/* 🔄 리셋 버튼 추가 */}
-        <button className="reset-button" onClick={resetGame}>게임 리셋</button>
+      {/* 🔄 리셋 버튼 */}
+      <button className="reset-button" onClick={loadNewPuzzle}>게임 리셋</button>
     </div>
   );
 };
