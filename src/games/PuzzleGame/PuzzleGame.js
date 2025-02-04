@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PuzzleGame.css';
+import bgPuzzle from "../../assets/images/bg-puzzle.jpg";
 
 // 이미지 분할 함수 (3x3)
 const splitImage = (img, rows, cols) => {
@@ -108,7 +109,7 @@ const PuzzleGame = () => {
   };
 
   return (
-    <div className='game-container'>
+    <div className='game-container' style={{ backgroundImage: `url(${bgPuzzle})`}}>
       <h1>이미지 퍼즐 맞추기</h1>
       <p>현재 퍼즐: {selectedImage.split('/').pop().replace('.jpg', '')}</p>
       <div className="puzzle">

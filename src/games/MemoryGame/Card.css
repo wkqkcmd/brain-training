@@ -14,3 +14,10 @@
 .flipped {
   background: white;
 }
+
+@media (max-width:480px){
+  .card{
+    width: 75px;
+    height: 75px;
+  }
+}

@@ -1,10 +1,50 @@
-.App {
+@font-face {
+  font-family: "PyeongChangPeace-Bold";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GumiRomanceTTF";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "GumiRomanceTTF";
   text-align: center;
+}
+
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100vh;
+  text-align: center;
+  padding-top: 30px;
+  background-size: cover;
+}
+
+.nav {
+  text-align: center;
+  background: radial-gradient(circle, rgb(22, 127, 225), rgb(75, 104, 248));
+  font-family: "PyeongChangPeace-Bold";
 }
 
 nav ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav li {
@@ -15,9 +55,78 @@ nav li {
 nav a {
   text-decoration: none;
   font-size: 20px;
-  color: #333;
+  color: #ffffff;
 }
 
 nav a:hover {
-  color: #007BFF;
+  color: #404040;
+}
+
+.home-page{
+  background-size: cover;
+  height: 100vh;
+}
+
+.home-msg {
+  font-size: large;
+  padding-top: 20px;
+  margin-bottom: 50px;
+  color: #eeeeee;
+  display: inline-block;
+}
+
+.preview img {
+  width: 300px;
+  cursor: pointer;
+  height: 300px;
+}
+
+.preview img:hover {
+  transform: scale(1.15);
+}
+
+.preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  place-items: center;
+}
+
+.preview-link {
+  font-size: medium;
+  text-decoration: none;
+  color: #d4d4d4;
+  margin-top: 5px;
+}
+
+.preview-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/*미디어쿼리*/
+
+/*스마트폰크기*/
+@media (max-width: 480px) {
+  .preview img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .preview-link {
+    font-size: small;
+  }
+
+  nav ul li {
+    display: none; /* 모든 메뉴 숨기기 */
+  }
+
+  nav ul li:first-child {
+    display: block; /* 첫 번째 메뉴(홈)만 보이기 */
+  }
 }

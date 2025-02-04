@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Card from './Card';
-import './MemoryGame.css';
+import React, { useState, useEffect, useRef } from "react";
+import Card from "./Card";
+import "./MemoryGame.css";
+import bgMemory from "../../assets/images/bg-memory.jpg";
 
-const images = ['🍎', '🍌', '🍇', '🍉', '🍓', '🍒', '🥑', '🥕'];
+const images = ["🍎", "🍌", "🍇", "🍉", "🍓", "🍒", "🥑", "🥕"];
 
 const shuffleCards = () => {
   return [...images, ...images]
@@ -127,7 +128,8 @@ const MemoryGame = () => {
   };
 
   return (
-    <div className="game-container">
+    <div className="game-container" style={{ backgroundImage: `url(${bgMemory})` }}>
+      <h1>같은 그림 찾기</h1>
       <div className="game-info">
         {!isGameActive && !isGameFinished && (
           <h2>카드를 기억하세요! 남은 시간: {timeLeft}초</h2>
@@ -140,12 +142,18 @@ const MemoryGame = () => {
 
       <div className="grid">
         {cards.map((card) => (
-          <Card key={card.id} card={card} onClick={() => handleCardClick(card.id)} />
+          <Card
+            key={card.id}
+            card={card}
+            onClick={() => handleCardClick(card.id)}
+          />
         ))}
       </div>
 
       {isGameFinished && (
-        <button className="reset-button" onClick={resetGame}>🔄 다시 시작</button>
+        <button className="reset-button" onClick={resetGame}>
+          🔄 다시 시작
+        </button>
       )}
     </div>
   );
