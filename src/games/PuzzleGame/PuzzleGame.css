@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(3, 100px); /* 3x3 그리드 */
   grid-template-rows: repeat(3, 100px);
-  gap: 5px;
+  gap: 3px;
   margin: 20px;
 }
 
