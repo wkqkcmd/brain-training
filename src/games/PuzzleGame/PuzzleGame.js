@@ -42,13 +42,22 @@ const PuzzleGame = () => {
   const [selectedPiece, setSelectedPiece] = useState(null); // 터치용 선택한 조각
 
   const imageList = [
-    '/images/puzzlegame/토끼.jpg',
     '/images/puzzlegame/배에서.jpg',
     '/images/puzzlegame/고양이.jpg',
-    '/images/puzzlegame/메리.jpg',
     '/images/puzzlegame/과일테이블.jpg',
     '/images/puzzlegame/부케.jpg',
     '/images/puzzlegame/해골.jpg',
+    '/images/puzzlegame/자화상.jpg',
+    '/images/puzzlegame/연꽃.jpg',
+    '/images/puzzlegame/장식컵.jpg',
+    '/images/puzzlegame/진저맨쿠키.jpg',
+    '/images/puzzlegame/크로아상.jpg',
+    '/images/puzzlegame/케이크.jpg',
+    '/images/puzzlegame/머그커피.jpg',
+    '/images/puzzlegame/회중시계.jpg',
+    '/images/puzzlegame/책.jpg',
+    '/images/puzzlegame/구슬.jpg',
+    '/images/puzzlegame/강아지.jpg',
   ];
 
   const loadNewPuzzle = () => {
