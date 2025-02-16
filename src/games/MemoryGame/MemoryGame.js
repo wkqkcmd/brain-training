@@ -128,7 +128,10 @@ const MemoryGame = () => {
   };
 
   return (
-    <div className="game-container" style={{ backgroundImage: `url(${bgMemory})` }}>
+    <div
+      className="game-container"
+      style={{ backgroundImage: `url(${bgMemory})` }}
+    >
       <h1>같은 그림 찾기</h1>
       <div className="game-info">
         {!isGameActive && !isGameFinished && (
@@ -138,23 +141,23 @@ const MemoryGame = () => {
         {isGameFinished && (
           <h2 className="success-message">🎉 성공! 총 {gameTime}초!</h2>
         )}
-      </div>
 
-      <div className="grid">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            onClick={() => handleCardClick(card.id)}
-          />
-        ))}
-      </div>
+        <div className="grid">
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              onClick={() => handleCardClick(card.id)}
+            />
+          ))}
+        </div>
 
-      {isGameFinished && (
-        <button className="reset-button" onClick={resetGame}>
-          🔄 다시 시작
-        </button>
-      )}
+        {isGameFinished && (
+          <button className="reset-button" onClick={resetGame}>
+            🔄 다시 시작
+          </button>
+        )}
+      </div>
     </div>
   );
 };

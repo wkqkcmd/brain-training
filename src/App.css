@@ -14,27 +14,39 @@
   font-style: normal;
 }
 
-body {
-  font-family: "GumiRomanceTTF";
-  text-align: center;
+@font-face {
+  font-family: 'GowunDodum-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
+html,body {
+  font-family: 'GowunDodum-Regular',sans-serif;
+  text-align: center;
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
 
 .game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   text-align: center;
   padding-top: 30px;
+  padding-bottom: 30px;
   background-size: cover;
 }
 
 .nav {
   text-align: center;
   background: radial-gradient(circle, rgb(22, 127, 225), rgb(75, 104, 248));
-  font-family: "PyeongChangPeace-Bold";
+  font-family: "PyeongChangPeace-Bold", sans-serif;
 }
 
 nav ul {
@@ -63,8 +75,7 @@ nav a:hover {
 }
 
 .home-page{
-  background-size: cover;
-  height: 100vh;
+  font-weight: bold;
 }
 
 .home-msg {
@@ -89,7 +100,7 @@ nav a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 1px;
+  gap: 1rem;
   place-items: center;
 }
 

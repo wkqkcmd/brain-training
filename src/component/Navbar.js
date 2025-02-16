@@ -16,6 +16,9 @@ const Navbar = () => {
           <li>
             <Link to="/puzzle">퍼즐 게임</Link>
           </li>
+          <li>
+            <Link to="/word">초성 퀴즈</Link>
+          </li>
         </ul>
       </nav>
     </div>
