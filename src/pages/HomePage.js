@@ -23,6 +23,11 @@ const HomePage = () => {
         <img onClick={()=>{navigate("/word")}} src="/images/preview/img-wordgame.jpg" alt="초성 퀴즈" />
         <Link className="preview-link" to="/word">초성 퀴즈</Link>
         </div>
+        <div className='preview-card item'>
+        <img onClick={()=>{navigate("/sichuan")}} src="/images/preview/img-wordgame.jpg" alt="미로 퀴즈" />
+        <Link className="preview-link" to="/sichuan">사천성</Link>
+        </div>
+        
       </div>
     </div>
   );

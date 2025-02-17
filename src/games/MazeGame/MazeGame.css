@@ -1,0 +1,41 @@
+.maze-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .maze {
+    display: grid;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .maze-row {
+    display: flex;
+  }
+  
+  .maze-cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: white;
+  }
+  
+  .wall {
+    background-color: black;
+  }
+  
+  .player {
+    background-color: blue;
+  }
+  
+  .goal {
+    background-color: red;
+  }
+  
+  .game-over {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+    margin-top: 20px;
+  }
+  

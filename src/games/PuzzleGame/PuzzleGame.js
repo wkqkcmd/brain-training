@@ -3,6 +3,7 @@ import "./PuzzleGame.css";
 import bgPuzzle from "../../assets/images/bg-puzzle.jpg";
 
 
+
 const preprocessImage = (img, targetWidth, targetHeight) => {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");

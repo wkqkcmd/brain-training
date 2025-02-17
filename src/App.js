@@ -6,6 +6,8 @@ import WordGame from "./games/WordGame/WordGame";
 import "./App.css"; // 스타일을 추가할 수 있습니다
 import HomePage from "./pages/HomePage";
 import Navbar from "./component/Navbar";
+import MazeGame from "./games/MazeGame/MazeGame";
+import SichuanGame from "./games/SichuanGame/SichuanGame";
 
 const App = () => {
   return (
@@ -17,7 +19,9 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/memory" element={<MemoryGame />} />
           <Route path="/puzzle" element={<PuzzleGame />} />
-          <Route path="word" element={<WordGame />} />
+          <Route path="/word" element={<WordGame />} />
+          <Route path="/maze" element={<MazeGame />} />
+          <Route path="/sichuan" element={<SichuanGame />} />
         </Routes>
       </Router>
     </div>
