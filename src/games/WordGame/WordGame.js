@@ -57,7 +57,7 @@ const WordGame = () => {
               </strong>
             </p>
           </p>
-          <p className="timer">남은 시간: {timeLeft}초</p>
+          <p className="timer">⌛{timeLeft}초</p>
 
           {/* 다음 문제 버튼 클릭 시 남은 시간을 0으로 만들어 타이머 effect를 통해 자동 전환 */}
           <button className="reset-button" onClick={() => setTimeLeft(0)}>

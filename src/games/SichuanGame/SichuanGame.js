@@ -225,8 +225,9 @@ const SichuanGame = () => {
             // newBoard[r][c] = null;
             // setBoard(newBoard);
             setPath([]);
-            setMessage("타일 제거 성공!");
-            // setTimeout(() => setMessage(""), 1000);
+
+            setMessage("매칭 성공!");
+            setTimeout(() => setMessage(""), 1000);
           }, 300);
         } else {
           setMessage("연결할 수 없습니다!");
@@ -237,8 +238,8 @@ const SichuanGame = () => {
     }
   };
 
-  //성공메시지
   useEffect(() => {
+    //성공메시지
     // 플레이 영역(테두리를 제외한 영역)에서 남아있는 타일이 있는지 확인
     let allRemoved = true;
     for (let r = 1; r < ROWS - 1; r++) {
@@ -251,9 +252,9 @@ const SichuanGame = () => {
       if (!allRemoved) break;
     }
     if (allRemoved) {
-      setMessage("Game Clear!");
+      setMessage("🎉Game Clear!🎉");
     }
-  }, [board]);
+  }, [board, message]);
 
   // const handleTileClick = (r, c) => {
   //     if (!board[r][c]) return;

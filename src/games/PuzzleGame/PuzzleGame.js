@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./PuzzleGame.css";
 import bgPuzzle from "../../assets/images/bg-puzzle.jpg";
 
-
-
 const preprocessImage = (img, targetWidth, targetHeight) => {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -37,10 +35,6 @@ const preprocessImage = (img, targetWidth, targetHeight) => {
 
   return canvas;
 };
-
-
-
-
 
 // 이미지 분할 함수 (3x3)
 const splitImage = (img, rows, cols) => {
@@ -84,6 +78,7 @@ const PuzzleGame = () => {
   const [completed, setCompleted] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedPiece, setSelectedPiece] = useState(null); // 터치용 선택한 조각
+  const [gameLevel, setGameLevel] = useState(3);
 
   const imageList = [
     "/images/puzzlegame/배에서.jpg",
@@ -102,6 +97,7 @@ const PuzzleGame = () => {
     "/images/puzzlegame/책.jpg",
     "/images/puzzlegame/구슬.jpg",
     "/images/puzzlegame/강아지.jpg",
+    "/images/puzzlegame/토끼.jpg",
   ];
 
   const loadNewPuzzle = () => {
@@ -113,7 +109,7 @@ const PuzzleGame = () => {
     img.onload = () => {
       // 이미지 크기를 고정한 후 조각으로 분할
       const fixedCanvas = preprocessImage(img, 300, 300); // 300x300 크기로 고정
-      const pieces = splitImage(fixedCanvas, 3, 3);
+      const pieces = splitImage(fixedCanvas, gameLevel, gameLevel);
 
       // const pieces = splitImage(img, 3, 3);
       setPieces(pieces);
@@ -124,7 +120,7 @@ const PuzzleGame = () => {
 
   useEffect(() => {
     loadNewPuzzle();
-  }, []);
+  }, [gameLevel]);
 
   // 퍼즐 조각 위치 변경 함수 (공통)
   const swapPieces = (fromIndex, toIndex) => {
@@ -174,12 +170,21 @@ const PuzzleGame = () => {
       style={{ backgroundImage: `url(${bgPuzzle})` }}
     >
       <h1>이미지 퍼즐 맞추기</h1>
-      <p>현재 퍼즐: {selectedImage.split("/").pop().replace(".jpg", "")}</p>
-      <div className="puzzle">
+      <div>
+        <button onClick={() => setGameLevel(3)}>3x3</button>
+        <button onClick={() => setGameLevel(4)}>4x4</button>
+      </div>
+      <div className="puzzle-board">
+
+      <h3 className="img-title"> {selectedImage.split("/").pop().replace(".jpg", "")}</h3>
+      <div
+        className={gameLevel == 3 ? "puzzle-3x3" : "puzzle-4x4"}
+        style={completed ? { pointerEvents: "none" } : {}}
+      >
         {shuffledPieces.map((piece, index) => (
           <div
-            key={index}
-            className={`puzzle-piece ${
+          key={index}
+          className={`puzzle-piece ${
               selectedPiece === index ? "selected" : ""
             }`}
             style={{ backgroundImage: `url(${piece})` }}
@@ -188,10 +193,11 @@ const PuzzleGame = () => {
             onDrop={(e) => handleDrop(e, index)}
             onDragOver={handleDragOver}
             onTouchStart={() => handleTouchStart(index)} // 📱 터치 지원 추가
-          />
-        ))}
+            />
+          ))}
       </div>
-      {completed && <p>🎉 게임 완료! 축하합니다! 🎉</p>}
+      <div style={{ visibility: completed ? "visible" : "hidden" }}>🎉 Game Clear! 🎉</div>
+          </div>
 
       {/* 🔄 리셋 버튼 */}
       <button className="reset-button" onClick={loadNewPuzzle}>

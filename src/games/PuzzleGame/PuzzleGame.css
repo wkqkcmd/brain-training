@@ -1,15 +1,27 @@
-
-.puzzle {
+.puzzle-3x3 {
   display: grid;
   grid-template-columns: repeat(3, 100px); /* 3x3 그리드 */
   grid-template-rows: repeat(3, 100px);
-  gap: 3px;
+  gap: 1px;
   margin: 20px;
 }
 
+.puzzle-4x4 {
+  display: grid;
+  grid-template-columns: repeat(4, 75px); /* 3x3 그리드 */
+  grid-template-rows: repeat(4, 75px);
+  gap: 1px;
+  margin: 20px;
+}
+
+.img-title {
+  margin-bottom: 0;
+  color: rgb(77, 76, 76);
+}
+
 .puzzle-piece {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   background-size: cover;
   cursor: pointer;
   border: 1px solid #ddd;
@@ -31,7 +43,7 @@ p {
   margin-top: 20px;
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #ff6347;
+  background-color: #307bd6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -40,11 +52,22 @@ p {
 }
 
 .reset-button:hover {
-  background-color: #ff4530;
+  background-color: #307bd6;
 }
 
 /* 퍼즐 조각 선택 시 강조 효과 */
 .puzzle-piece.selected {
-  border: 3px solid red;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+  border: 3px solid skyblue;
+  box-shadow: 0 0 10px white;
+  filter: brightness(70%);
+  margin: 0;
+}
+
+.puzzle-board {
+  border: 1px solid lightslategray;
+  background-color: lightblue;
+  box-shadow: 0 0 10px skyblue;
+  margin: 1em;
+  border-radius: 10px;
+  padding: 1em;
 }

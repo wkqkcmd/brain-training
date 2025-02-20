@@ -135,11 +135,11 @@ const MemoryGame = () => {
       <h1>같은 그림 찾기</h1>
       <div className="game-info">
         {!isGameActive && !isGameFinished && (
-          <h2>카드를 기억하세요! 남은 시간: {timeLeft}초</h2>
+          <h2>⌛{timeLeft}초 동안 카드를 기억하세요!</h2>
         )}
-        {isGameActive && <h2>게임 진행 시간: {gameTime}초</h2>}
+        {isGameActive && <h2> ⏰{gameTime}초</h2>}
         {isGameFinished && (
-          <h2 className="success-message">🎉 성공! 총 {gameTime}초!</h2>
+          <h2 className="success-message">🎉{gameTime}초 Game Clear!🎉</h2>
         )}
 
         <div className="grid">
@@ -154,7 +154,7 @@ const MemoryGame = () => {
 
         {isGameFinished && (
           <button className="reset-button" onClick={resetGame}>
-            🔄 다시 시작
+            게임 리셋
           </button>
         )}
       </div>
