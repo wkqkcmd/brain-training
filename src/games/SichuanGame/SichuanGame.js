@@ -174,12 +174,13 @@ const SichuanGame = () => {
     setMessage("");
     setPath([]);
   };
+
   const handleTileClick = (r, c) => {
     if (!board[r][c]) return; // 클릭한 셀이 빈 칸이면 무시
-  
+
     // 이미 선택된 좌표인지 확인
     if (selected.some(([sr, sc]) => sr === r && sc === c)) return;
-  
+
     if (selected.length === 0) {
       setSelected([[r, c]]);
     } else if (selected.length === 1) {
@@ -189,17 +190,17 @@ const SichuanGame = () => {
         setSelected([]);
         return;
       }
-  
+
       const second = [r, c];
       const tile1 = board[first[0]][first[1]];
       const tile2 = board[r][c];
-  
+
       // 두 타일이 유효한지 확인 (안전 체크)
       if (!tile1 || !tile2) {
         setSelected([]);
         return;
       }
-  
+
       if (tile1.type !== tile2.type) {
         setMessage("타일이 일치하지 않습니다!");
         setTimeout(() => {
@@ -212,14 +213,21 @@ const SichuanGame = () => {
           setPath(connectingPath);
           // 500ms 동안 경로 선 표시 후 타일 제거
           setTimeout(() => {
-            const newBoard = board.map(row => row.slice());
-            newBoard[first[0]][first[1]] = null;
-            newBoard[r][c] = null;
-            setBoard(newBoard);
+            //타일 연속제거시 첫번째 타일 생성되는 버그 해결
+            setBoard((prevBoard) => {
+              const newBoard = prevBoard.map((row) => row.slice());
+              newBoard[first[0]][first[1]] = null;
+              newBoard[r][c] = null;
+              return newBoard;
+            });
+            // const newBoard = board.map((row) => row.slice());
+            // newBoard[first[0]][first[1]] = null;
+            // newBoard[r][c] = null;
+            // setBoard(newBoard);
             setPath([]);
             setMessage("타일 제거 성공!");
-            setTimeout(() => setMessage(""), 1000);
-          }, 500);
+            // setTimeout(() => setMessage(""), 1000);
+          }, 300);
         } else {
           setMessage("연결할 수 없습니다!");
           setTimeout(() => setMessage(""), 1000);
@@ -228,45 +236,63 @@ const SichuanGame = () => {
       }
     }
   };
-  
-//   const handleTileClick = (r, c) => {
-//     if (!board[r][c]) return;
-//     if (selected.some(([sr, sc]) => sr === r && sc === c)) return;
-//     if (selected.length === 0) {
-//       setSelected([[r, c]]);
-//     } else if (selected.length === 1) {
-//       const first = selected[0];
-//       const second = [r, c];
-//       const tile1 = board[first[0]][first[1]];
-//       const tile2 = board[r][c];
-//       if (tile1.type !== tile2.type) {
-//         setMessage("타일이 일치하지 않습니다!");
-//         setTimeout(() => {
-//           setMessage("");
-//           setSelected([]);
-//         }, 1000);
-//       } else {
-//         if (canConnect(board, first, second)) {
-//           const connectingPath = getPath(board, first, second);
-//           setPath(connectingPath);
-//           // 500ms 동안 경로 선 표시 후 타일 제거
-//           setTimeout(() => {
-//             const newBoard = board.map((row) => row.slice());
-//             newBoard[first[0]][first[1]] = null;
-//             newBoard[r][c] = null;
-//             setBoard(newBoard);
-//             setPath([]);
-//             setMessage("타일 제거 성공!");
-//             setTimeout(() => setMessage(""), 1000);
-//           }, 500);
-//         } else {
-//           setMessage("연결할 수 없습니다!");
-//           setTimeout(() => setMessage(""), 1000);
-//         }
-//         setSelected([]);
-//       }
-//     }
-//   };
+
+  //성공메시지
+  useEffect(() => {
+    // 플레이 영역(테두리를 제외한 영역)에서 남아있는 타일이 있는지 확인
+    let allRemoved = true;
+    for (let r = 1; r < ROWS - 1; r++) {
+      for (let c = 1; c < COLS - 1; c++) {
+        if (board[r][c] !== null) {
+          allRemoved = false;
+          break;
+        }
+      }
+      if (!allRemoved) break;
+    }
+    if (allRemoved) {
+      setMessage("Game Clear!");
+    }
+  }, [board]);
+
+  // const handleTileClick = (r, c) => {
+  //     if (!board[r][c]) return;
+  //     if (selected.some(([sr, sc]) => sr === r && sc === c)) return;
+  //     if (selected.length === 0) {
+  //       setSelected([[r, c]]);
+  //     } else if (selected.length === 1) {
+  //       const first = selected[0];
+  //       const second = [r, c];
+  //       const tile1 = board[first[0]][first[1]];
+  //       const tile2 = board[r][c];
+  //       if (tile1.type !== tile2.type) {
+  //         setMessage("타일이 일치하지 않습니다!");
+  //         setTimeout(() => {
+  //           setMessage("");
+  //           setSelected([]);
+  //         }, 1000);
+  //       } else {
+  //         if (canConnect(board, first, second)) {
+  //           const connectingPath = getPath(board, first, second);
+  //           setPath(connectingPath);
+  //           // 500ms 동안 경로 선 표시 후 타일 제거
+  //           setTimeout(() => {
+  //             const newBoard = board.map((row) => row.slice());
+  //             newBoard[first[0]][first[1]] = null;
+  //             newBoard[r][c] = null;
+  //             setBoard(newBoard);
+  //             setPath([]);
+  //             setMessage("타일 제거 성공!");
+  //             setTimeout(() => setMessage(""), 1000);
+  //           }, 500);
+  //         } else {
+  //           setMessage("연결할 수 없습니다!");
+  //           setTimeout(() => setMessage(""), 1000);
+  //         }
+  //         setSelected([]);
+  //       }
+  //     }
+  //   };
 
   // 각 셀의 중앙 좌표 계산 (보드 패딩 및 셀 크기 고려)
   const getCellCenter = (r, c) => {
@@ -282,7 +308,7 @@ const SichuanGame = () => {
       return `${x},${y}`;
     })
     .join(" ");
-      
+
   return (
     <div
       className="game-container"
@@ -295,7 +321,7 @@ const SichuanGame = () => {
           <div key={r} className="row">
             {row.map((cell, c) => (
               <div
-              tabIndex={0}
+                tabIndex={0}
                 key={c}
                 className={`cell ${cell ? "tile" : "empty"}`}
                 onClick={() => handleTileClick(r, c)}
